@@ -23,7 +23,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
       }),
       skills: new fields.SchemaField({
         // Grupo 1: Cuerpo
-        melee: statField(0),
+        pelea: statField(0),
         disparo: statField(0),
         atletismo: statField(0),
         acrobacia: statField(0),
