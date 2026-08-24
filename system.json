@@ -53,4 +53,3 @@
   "manifest": "https://your/hosted/system/repo/system.json",
   "download": "https://your/packaged/download/archive.zip"
 }
-Required Manifest Attributes
