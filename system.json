@@ -42,10 +42,10 @@
     }
   },
   "socket": false,
-  "initiative": "1d20",
+  "initiative": "1d10",
   "grid": {
-    "distance": 10,
-    "units": "ft"
+    "distance": 5,
+    "units": "m"
   },
   "primaryTokenAttribute": "resources.health",
   "secondaryTokenAttribute": "resources.power",
