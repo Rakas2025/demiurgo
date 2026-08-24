@@ -35,7 +35,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
 
         // Grupo 2: Mente
         percepcion: statField(0),
-        persuasion: statField(0),
+        influencia: statField(0),
         resilencia: statField(0),
         subterfugio: statField(0),
         elaborar: statField(0),
