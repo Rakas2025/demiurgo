@@ -22,7 +22,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         voluntad: statField(0)
       }),
       skills: new fields.SchemaField({
-        // Grupo 1: Estamina
+        // Grupo 1: Cuerpo
         melee: statField(0),
         disparo: statField(0),
         atletismo: statField(0),
@@ -33,7 +33,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         latrocinio: statField(0),
         conducir: statField(0),
 
-        // Grupo 2: Compostura
+        // Grupo 2: Mente
         percepcion: statField(0),
         persuasion: statField(0),
         resilencia: statField(0),
@@ -44,7 +44,7 @@ export class CharacterData extends foundry.abstract.TypeDataModel {
         medicina: statField(0),
         cultura: statField(0),
 
-        // Grupo 3: Poder
+        // Grupo 3: Alma
         ocultismo: statField(0),
         espiritualidad: statField(0),
         canalizar: statField(0),
