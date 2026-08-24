@@ -1,4 +1,4 @@
-export class MySystemActor extends Actor {
+export class demiurgoActor extends Actor {
 
   async rollCheck(attrKey, skillKey, label = "") {
     const attrVal = this.system.attributes[attrKey] ?? 0;
@@ -21,4 +21,4 @@ export class MySystemActor extends Actor {
   }
 }
 
-export class MySystemItem extends Item {}
+export class demiurgoItem extends Item {}
