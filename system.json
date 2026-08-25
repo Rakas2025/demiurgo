@@ -4,7 +4,7 @@
   "description": "Sistema de rol para FoundryVTT.",
   "version": "0.1.0",
   "compatibility": {
-    "minimum": 14,
+    "minimum": 11,
     "verified": 14
   },
   "authors": [{
@@ -47,8 +47,8 @@
     "distance": 5,
     "units": "m"
   },
-  "primaryTokenAttribute": "resources.health",
-  "secondaryTokenAttribute": "resources.power",
+  "primaryTokenAttribute": "derived.estamina",
+  "secondaryTokenAttribute": "derived.compostura",
   "url": "https://your/hosted/system/repo/",
   "manifest": "https://your/hosted/system/repo/system.json",
   "download": "https://your/packaged/download/archive.zip"
