@@ -1,1 +1,100 @@
+.demiurgo.sheet.actor {
+  min-width: 650px;
+  min-height: 550px;
+  font-family: var(--font-primary, "Roboto", sans-serif);
+}
 
+.demiurgo .sheet-header h1 input {
+  width: 100%;
+  height: 2.2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border: 1px solid var(--color-border-dark, #7a7971);
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.demiurgo .group-container {
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid var(--color-border-light-2, #c9c7b8);
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 12px;
+}
+
+.demiurgo .group-container h3 {
+  border-bottom: 1px solid var(--color-border-dark, #7a7971);
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+  color: #4b4a44;
+}
+
+.demiurgo .flexrow label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.demiurgo .flexrow input[type="number"] {
+  width: 50px;
+  text-align: center;
+}
+
+.demiurgo .group-container p {
+  margin: 0;
+  align-self: center;
+  font-size: 0.95rem;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.demiurgo .rollable-stat,
+.demiurgo .rollable-skill {
+  cursor: pointer;
+  color: #191813;
+  transition: color 0.15s ease, transform 0.15s ease;
+  user-select: none;
+}
+
+.demiurgo .rollable-stat:hover,
+.demiurgo .rollable-skill:hover {
+  color: #ff6400;
+  text-shadow: 0 0 4px rgba(255, 100, 0, 0.4);
+}
+
+.demiurgo .rollable-stat i,
+.demiurgo .rollable-skill i {
+  margin-right: 3px;
+  opacity: 0.7;
+}
+
+.demiurgo .rollable-stat:hover i,
+.demiurgo .rollable-skill:hover i {
+  opacity: 1;
+}
+
+.demiurgo .grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 12px;
+  margin-bottom: 15px;
+}
+
+.demiurgo .grid-3col label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--color-border-light-2, #c9c7b8);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.demiurgo .grid-3col input[type="number"] {
+  width: 45px;
+  text-align: center;
+}
