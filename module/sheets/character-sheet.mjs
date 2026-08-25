@@ -6,6 +6,7 @@ export class CharacterSheet extends ActorSheet {
       width: 700,
       height: 600,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }]
+      title: game.i18n.localize("DEMIURGO.SheetTitle")
     });
   }
 
