@@ -98,3 +98,29 @@
   width: 45px;
   text-align: center;
 }
+
+.demiurgo .sheet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.demiurgo .profile-img {
+  flex: 0 0 100px;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  border: 2px solid var(--color-border-dark, #7a7971);
+  border-radius: 6px;
+  cursor: pointer;
+  background: #000;
+}
+
+.demiurgo .profile-img:hover {
+  border-color: #ff6400;
+}
+
+.demiurgo .sheet-header h1 {
+  flex: 1;
+  margin: 0;
+}
