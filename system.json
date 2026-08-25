@@ -13,7 +13,7 @@
     "email": "YOUR EMAIL ADDRESS HERE",
     "discord": "YOUR DISCORD USERNAME HERE"
   }],
-  "esmodules": ["mysystem.mjs"],
+  "esmodules": ["demiurgo.mjs"],
   "styles": ["styles/system-styles.css"],
   "packs": [{
     "name": "monsters",
