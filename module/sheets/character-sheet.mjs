@@ -5,8 +5,8 @@ export class CharacterSheet extends ActorSheet {
       template: "systems/demiurgo/templates/actor/character-sheet.hbs",
       width: 700,
       height: 600,
+      title: game.i18n.localize("DEMIURGO.SheetTitle"),
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }]
-      title: game.i18n.localize("DEMIURGO.SheetTitle")
     });
   }
 
@@ -21,7 +21,7 @@ export class CharacterSheet extends ActorSheet {
     super.activateListeners(html);
     if (!this.isEditable) return;
 
-    // Listener para tiradas de skills ( 1d10 + Stat + Skill)
+    // Listener para tiradas de skills (1d10 + Stat + Skill)
     html.find('.rollable-skill').click(async (event) => {
       event.preventDefault();
       const skillKey = event.currentTarget.dataset.skill;
@@ -48,9 +48,9 @@ export class CharacterSheet extends ActorSheet {
           roll: {
             icon: '<i class="fas fa-dice"></i>',
             label: "Tirar",
-            callback: (htmlDialog) => {
+            callback: async (htmlDialog) => {
               const chosenAttr = htmlDialog.find('#attr-select').val();
-              this.actor.rollCheck(chosenAttr, skillKey);
+              await this.actor.rollCheck(chosenAttr, skillKey);
             }
           }
         },
