@@ -59,8 +59,10 @@
           <div class="dano-stats flexrow">
             <div class="dano-col">
               <div class="stat-row"><label>Aguante</label> <input type="number" name="system.combate.aguante" value="{{system.combate.aguante}}"></div>
-              <div class="stat-row"><label>Recibido</label> <input type="number" name="system.combate.recibido" value="{{system.combate.recibido}}"></div>
               <div class="stat-row"><label>Absorción</label> <input type="number" name="system.combate.absorcion" value="{{system.combate.absorcion}}"></div>
+            </div>
+            <div class="dano-col">
+              <label>Recibido</label> <input class="big-input" type="number" name="system.combate.recibido" value="{{system.combate.recibido}}">
             </div>
             <div class="dano-col right-col">
               <label>Heridas</label>
@@ -83,9 +85,9 @@
             <div class="def-box"><label>Bono</label><input type="number" name="system.combate.defensa.bono" value="{{system.combate.defensa.bono}}"></div>
           </div>
           <div class="defensa-activa">
-             <div class="activa-row"><label>Activa</label> <span>Acción</span></div>
-             <div class="activa-row"><label></label> <button type="button">Med.</button> <button type="button">Com.</button></div>
-             <div class="activa-row mt-1"><label>Total</label> <button type="button">Med.</button> <button type="button">Com.</button></div>
+             <div class="activa-row"><span>Acción</span></div>
+             <div class="activa-row"><label>Activa</label> <button class="tipo-accion" type="button">Med.</button> <button type="button" class="tipo-accion">Com.</button></div>
+             <div class="activa-row mt-1"><label>Total</label> <button type="button" class="tipo-accion">Med.</button> <button type="button" class="tipo-accion">Com.</button></div>
           </div>
           <div class="movimiento-row">
             <label class="block-title">Movimiento</label>

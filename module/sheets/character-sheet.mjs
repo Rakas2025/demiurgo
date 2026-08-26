@@ -3,7 +3,7 @@ export class CharacterSheet extends ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["demiurgo", "sheet", "actor"],
       template: "systems/demiurgo/templates/actor/character-sheet.hbs",
-      width: 900,
+      width: 1000,
       height: 750,
       title: game.i18n.localize("DEMIURGO.SheetTitle"),
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "principal" }]
@@ -28,7 +28,7 @@ export class CharacterSheet extends ActorSheet {
       saludPct: Math.max(0, 100 - ((recibido + heridas) / aguante) * 100) 
     };
 
-    context.opcionesTurno = { "Rapido": "Turno Rápido", "Lento": "Turno Lento" };
+    context.opcionesTurno = { "Rapido": "Rápido", "Lento": "Lento", "Defensivo": "Defensivo" };
 
     const turno = combate.turno || {};
     const puntosTurno = turno.puntos || 0;
