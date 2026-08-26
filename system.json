@@ -9,6 +9,8 @@
   },
   "authors": [{
     "name": "FenShui",
+    "license": "license.md",
+    "readme": "readme.md",
     "url": "YOUR WEBSITE ADDRESS HERE",
     "email": "YOUR EMAIL ADDRESS HERE",
     "discord": "YOUR DISCORD USERNAME HERE"
