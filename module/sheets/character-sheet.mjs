@@ -3,17 +3,43 @@ export class CharacterSheet extends ActorSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["demiurgo", "sheet", "actor"],
       template: "systems/demiurgo/templates/actor/character-sheet.hbs",
-      width: 700,
-      height: 600,
+      width: 900,
+      height: 750,
       title: game.i18n.localize("DEMIURGO.SheetTitle"),
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "principal" }]
     });
   }
 
   getData() {
     const context = super.getData();
-    context.system = context.actor.system;
+    const sys = context.actor.system;
+    
+    context.system = sys;
     context.flags = context.actor.flags;
+
+    const combate = sys.combate || {};
+    const aguante = Math.max(combate.aguante || 10, 1); 
+    const recibido = combate.recibido || 0;
+    const heridas = combate.heridas || 0;
+    
+    context.barras = {
+      danoPct: Math.min((recibido / aguante) * 100, 100),
+      heridasPct: Math.min((heridas / aguante) * 100, 100),
+      saludPct: Math.max(0, 100 - ((recibido + heridas) / aguante) * 100) 
+    };
+
+    context.opcionesTurno = { "Rapido": "Turno Rápido", "Lento": "Turno Lento" };
+
+    const turno = combate.turno || {};
+    const puntosTurno = turno.puntos || 0;
+    
+    context.circulosTurno = [];
+    for (let i = 1; i <= 4; i++) {
+      if (puntosTurno >= i) context.circulosTurno.push("full");
+      else if (puntosTurno >= i - 0.5) context.circulosTurno.push("half");
+      else context.circulosTurno.push("empty");
+    }
+
     return context;
   }
 
@@ -21,7 +47,22 @@ export class CharacterSheet extends ActorSheet {
     super.activateListeners(html);
     if (!this.isEditable) return;
 
-    // Listener para tiradas de skills (1d10 + Stat + Skill)
+    html.find('.adj-btn').click(async (event) => {
+      event.preventDefault();
+      const target = event.currentTarget.dataset.target;
+      const dir = parseFloat(event.currentTarget.dataset.dir);
+      const step = parseFloat(event.currentTarget.dataset.step) || 1; 
+      const max = parseFloat(event.currentTarget.dataset.max) || Infinity;
+      
+      const currentVal = foundry.utils.getProperty(this.actor, target) || 0;
+      
+      const newVal = Math.max(0, Math.min(currentVal + (dir * step), max));
+      
+      if (newVal !== currentVal) {
+        await this.actor.update({ [target]: newVal });
+      }
+    });
+
     html.find('.rollable-skill').click(async (event) => {
       event.preventDefault();
       const skillKey = event.currentTarget.dataset.skill;
@@ -50,7 +91,11 @@ export class CharacterSheet extends ActorSheet {
             label: "Tirar",
             callback: async (htmlDialog) => {
               const chosenAttr = htmlDialog.find('#attr-select').val();
-              await this.actor.rollCheck(chosenAttr, skillKey);
+              if(this.actor.rollCheck) {
+                  await this.actor.rollCheck(chosenAttr, skillKey);
+              } else {
+                  ui.notifications.warn("rollCheck method missing on Actor.");
+              }
             }
           }
         },
@@ -58,7 +103,6 @@ export class CharacterSheet extends ActorSheet {
       }).render(true);
     });
 
-    // Listener para tiradas directas de stats (1d10 + Stat)
     html.find('.rollable-stat').click(async (event) => {
       event.preventDefault();
       const statKey = event.currentTarget.dataset.stat;
