@@ -44,9 +44,9 @@
     "distance": 5,
     "units": "m"
   },
-  "primaryTokenAttribute": "derived.estamina",
+"primaryTokenAttribute": "derived.estamina",
   "secondaryTokenAttribute": "derived.compostura",
-  "url": "https://your/hosted/system/repo/",
-  "manifest": "https://github.com/Rakas2025/system.json",
-  "download": "https://github.com/Rakas2025/demiurgo.zip"
+  "url": "https://github.com/Rakas2025/demiurgo",
+  "manifest": "https://raw.githubusercontent.com/Rakas2025/demiurgo/main/system.json",
+  "download": "https://github.com/Rakas2025/demiurgo/releases/latest/download/demiurgo.zip"
 }
