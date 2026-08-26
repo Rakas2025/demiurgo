@@ -1,75 +1,265 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-  <header class="sheet-header flexrow">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
-    <h1><input name="name" type="text" value="{{actor.name}}" placeholder="Nombre del personaje"/></h1>
-  </header>
-
-  <section class="sheet-body">
-    <!-- ATRIBUTOS Y STATS -->
-    <div class="group-container">
-      <h3>Grupo 1: Cuerpo</h3>
-      <div class="flexrow">
-        <label><a class="rollable-stat" data-stat="fortaleza"><i class="fas fa-dice"></i> Fortaleza</a> <input type="number" name="system.attributes.fortaleza" value="{{system.attributes.fortaleza}}" min="-5" max="30"/></label>
-        <label><a class="rollable-stat" data-stat="destreza"><i class="fas fa-dice"></i> Destreza</a> <input type="number" name="system.attributes.destreza" value="{{system.attributes.destreza}}" min="-5" max="30"/></label>
-        <p><strong>Estamina:</strong> {{system.derived.estamina}}</p>
+  
+  <!-- PARTE SUPERIOR -->
+  <header class="sheet-header main-grid">
+    <!-- FOTO FACHERA -->
+    <div class="portrait-container">
+      <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+    </div>
+    
+    <!-- Nombre del personaje y demas -->
+    <div class="header-details">
+      <div class="name-row">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Nombre del personaje"/>
       </div>
       
-      <h3>Grupo 2: Mente</h3>
-      <div class="flexrow">
-        <label><a class="rollable-stat" data-stat="intelecto"><i class="fas fa-dice"></i> Intelecto</a> <input type="number" name="system.attributes.intelecto" value="{{system.attributes.intelecto}}" min="-5" max="30"/></label>
-        <label><a class="rollable-stat" data-stat="carisma"><i class="fas fa-dice"></i> Carisma</a> <input type="number" name="system.attributes.carisma" value="{{system.attributes.carisma}}" min="-5" max="30"/></label>
-        <p><strong>Compostura:</strong> {{system.derived.compostura}}</p>
-      </div>
+      <div class="stats-top-row flexrow">
+        
+        <!-- SECCION 1: Destino & Albedrio -->
+        <div class="header-block recursos-block">
+          <div class="flexrow">
+            <div class="resource-col">
+              <label>Destino</label>
+              <div class="resource-square">
+                <input class="max-circle" type="number" name="system.recursos.destino.max" value="{{system.recursos.destino.max}}" title="Max Destino">
+                <span class="current-val">{{system.recursos.destino.value}}</span>
+              </div>
+              <div class="btn-group">
+                <a class="adj-btn" data-target="system.recursos.destino.value" data-dir="-1"><i class="fas fa-minus-circle"></i></a>
+                <a class="adj-btn" data-target="system.recursos.destino.value" data-dir="1"><i class="fas fa-plus-circle"></i></a>
+              </div>
+            </div>
+            <div class="resource-col">
+              <label>Albedrío</label>
+              <div class="resource-square">
+                <input class="max-circle" type="number" name="system.recursos.albedrio.max" value="{{system.recursos.albedrio.max}}" title="Max Albedrío">
+                <span class="current-val">{{system.recursos.albedrio.value}}</span>
+              </div>
+              <div class="btn-group">
+                <a class="adj-btn" data-target="system.recursos.albedrio.value" data-dir="-1"><i class="fas fa-minus-circle"></i></a>
+                <a class="adj-btn" data-target="system.recursos.albedrio.value" data-dir="1"><i class="fas fa-plus-circle"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="explosiones-row">
+            <label>Explosiones naturales</label>
+            <input type="number" name="system.recursos.explosiones" value="{{system.recursos.explosiones}}">
+          </div>
+        </div>
 
-      <h3>Grupo 3: Alma</h3>
-      <div class="flexrow">
-        <label><a class="rollable-stat" data-stat="afinidad"><i class="fas fa-dice"></i> Afinidad</a> <input type="number" name="system.attributes.afinidad" value="{{system.attributes.afinidad}}" min="-5" max="30"/></label>
-        <label><a class="rollable-stat" data-stat="voluntad"><i class="fas fa-dice"></i> Voluntad</a> <input type="number" name="system.attributes.voluntad" value="{{system.attributes.voluntad}}" min="-5" max="30"/></label>
-        <p><strong>Poder:</strong> {{system.derived.poder}}</p>
+        <!-- SECCION 2: Daño -->
+        <div class="header-block dano-block">
+          <label class="block-title">Daño</label>
+          <div class="health-bar-container">
+            <div class="health-bar">
+              <div class="health-fill damage" style="width: {{barras.danoPct}}%"></div>
+              <div class="health-fill wounds" style="width: {{barras.heridasPct}}%; right: 0; left: auto; background: #333;"></div>
+            </div>
+          </div>
+          <div class="dano-stats flexrow">
+            <div class="dano-col">
+              <div class="stat-row"><label>Aguante</label> <input type="number" name="system.combate.aguante" value="{{system.combate.aguante}}"></div>
+              <div class="stat-row"><label>Recibido</label> <input type="number" name="system.combate.recibido" value="{{system.combate.recibido}}"></div>
+              <div class="stat-row"><label>Absorción</label> <input type="number" name="system.combate.absorcion" value="{{system.combate.absorcion}}"></div>
+            </div>
+            <div class="dano-col right-col">
+              <label>Heridas</label>
+              <input type="number" class="big-input" name="system.combate.heridas" value="{{system.combate.heridas}}">
+            </div>
+          </div>
+        </div>
+
+        <!-- SECCION 3: Defensa y Movimiento -->
+        <div class="header-block defensa-block">
+          <div class="defensa-header flexrow">
+            <label class="block-title">Defensa</label>
+            <div class="def-inputs">
+              <input type="number" name="system.combate.defensa.base1" value="{{system.combate.defensa.base1}}"> + 
+              <input type="number" name="system.combate.defensa.base2" value="{{system.combate.defensa.base2}}">
+            </div>
+          </div>
+          <div class="defensa-mid flexrow">
+            <div class="def-box"><label>Pasiva</label><div class="readonly-box">{{system.derived.defensa.pasiva}}</div></div>
+            <div class="def-box"><label>Bono</label><input type="number" name="system.combate.defensa.bono" value="{{system.combate.defensa.bono}}"></div>
+          </div>
+          <div class="defensa-activa">
+             <div class="activa-row"><label>Activa</label> <span>Acción</span></div>
+             <div class="activa-row"><label></label> <button type="button">Med.</button> <button type="button">Com.</button></div>
+             <div class="activa-row mt-1"><label>Total</label> <button type="button">Med.</button> <button type="button">Com.</button></div>
+          </div>
+          <div class="movimiento-row">
+            <label class="block-title">Movimiento</label>
+            <input type="number" name="system.combate.movimiento" value="{{system.combate.movimiento}}">
+          </div>
+        </div>
+
+        <!-- SECCION 4: Turno -->
+        <div class="header-block turno-block">
+          <div class="turno-header flexrow">
+            <label class="block-title">Turno</label>
+            <select name="system.combate.turno.tipo">
+              {{selectOptions opcionesTurno selected=system.combate.turno.tipo}}
+            </select>
+          </div>
+          <div class="turno-bono">
+            <label>Bono</label>
+            <input type="number" name="system.combate.turno.bono" value="{{system.combate.turno.bono}}">
+          </div>
+          <div class="turno-dice">
+            {{#each system.combate.turno.dados as |val key|}}
+            <div class="dice-row">
+              <a class="adj-btn" data-target="system.combate.turno.dados.{{key}}" data-dir="-1"><i class="fas fa-minus-circle"></i></a>
+              <span class="dice-icon">{{key}}</span>
+              <span class="dice-val">{{val}}</span>
+              <a class="adj-btn" data-target="system.combate.turno.dados.{{key}}" data-dir="1"><i class="fas fa-plus-circle"></i></a>
+            </div>
+            {{/each}}
+          </div>
+          <div class="turno-actions flexrow">
+            <div class="action-btn-group">
+              <a class="adj-btn" data-target="system.combate.turno.puntos" data-dir="-1" data-step="1" data-max="4" title="-1"><i class="fas fa-minus-circle big-btn"></i></a>
+              <a class="adj-btn" data-target="system.combate.turno.puntos" data-dir="-1" data-step="0.5" data-max="4" title="-0.5"><i class="fas fa-minus small-btn"></i></a>
+            </div>
+            
+            <div class="action-circles">
+              {{#each circulosTurno as |estado|}}
+                <div class="turno-circle {{estado}}"></div>
+              {{/each}}
+            </div>
+
+            <div class="action-btn-group">
+              <a class="adj-btn" data-target="system.combate.turno.puntos" data-dir="1" data-step="0.5" data-max="4" title="+0.5"><i class="fas fa-plus small-btn"></i></a>
+              <a class="adj-btn" data-target="system.combate.turno.puntos" data-dir="1" data-step="1" data-max="4" title="+1"><i class="fas fa-plus-circle big-btn"></i></a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+  </header>
 
-    <hr>
+  <!-- NAVEGACION (Las secciones) -->
+  <nav class="sheet-tabs tabs" data-group="primary">
+    <a class="item active" data-tab="principal">Principal</a>
+    <a class="item" data-tab="biografia">Biografía</a>
+    <a class="item" data-tab="inventario">Inventario</a>
+    <a class="item" data-tab="experiencia">Experiencia</a>
+    <a class="item" data-tab="dotes">Dotes</a>
+    <a class="item options-btn" data-tab="opciones"><i class="fas fa-cog"></i></a>
+  </nav>
 
-    <!-- SKILLS -->
+  <!-- NAVEGACION GENERAL -->
+  <section class="sheet-body">
     
-    <h3>Habilidades de Cuerpo</h3>
-    <div class="grid grid-3col">
-      <label><a class="rollable-skill" data-skill="pelea"><i class="fas fa-dice"></i> Pelea</a> <input type="number" name="system.skills.pelea" value="{{system.skills.pelea}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="disparo"><i class="fas fa-dice"></i> Disparo</a> <input type="number" name="system.skills.disparo" value="{{system.skills.disparo}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="atletismo"><i class="fas fa-dice"></i> Atletismo</a> <input type="number" name="system.skills.atletismo" value="{{system.skills.atletismo}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="acrobacia"><i class="fas fa-dice"></i> Acrobacia</a> <input type="number" name="system.skills.acrobacia" value="{{system.skills.acrobacia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="proeza"><i class="fas fa-dice"></i> Proeza</a> <input type="number" name="system.skills.proeza" value="{{system.skills.proeza}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="resistencia"><i class="fas fa-dice"></i> Resistencia</a> <input type="number" name="system.skills.resistencia" value="{{system.skills.resistencia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="sigilo"><i class="fas fa-dice"></i> Sigilo</a> <input type="number" name="system.skills.sigilo" value="{{system.skills.sigilo}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="latrocinio"><i class="fas fa-dice"></i> Latrocinio</a> <input type="number" name="system.skills.latrocinio" value="{{system.skills.latrocinio}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="conducir"><i class="fas fa-dice"></i> Conducir</a> <input type="number" name="system.skills.conducir" value="{{system.skills.conducir}}" min="-5" max="30"/></label>
+    <!-- NAVEGACION: PRINCIPAL -->
+    <div class="tab principal main-layout flexrow" data-group="primary" data-tab="principal">
+      
+      <!-- Stats -->
+      <aside class="sidebar-stats">
+        <!-- Grupo 1 -->
+        <div class="stat-pair flexrow">
+          <div class="stat-box"><label><a class="rollable-stat" data-stat="fortaleza">Fortaleza</a></label><input type="number" name="system.attributes.fortaleza" value="{{system.attributes.fortaleza}}"></div>
+          <div class="stat-box"><label><a class="rollable-stat" data-stat="destreza">Destreza</a></label><input type="number" name="system.attributes.destreza" value="{{system.attributes.destreza}}"></div>
+        </div>
+        <div class="stat-bar-container">
+          <label>Estamina</label>
+          <div class="flexrow align-center">
+            <div class="resource-bar estamina-bg">x / {{system.derived.estamina.max}}</div>
+            <div class="bono-box"><label>Bono</label><input type="number" name="system.bonos.estamina" value="{{system.bonos.estamina}}"></div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Grupo 2 -->
+        <div class="stat-pair flexrow">
+          <div class="stat-box"><label><a class="rollable-stat" data-stat="intelecto">Intelecto</a></label><input type="number" name="system.attributes.intelecto" value="{{system.attributes.intelecto}}"></div>
+          <div class="stat-box"><label><a class="rollable-stat" data-stat="carisma">Carisma</a></label><input type="number" name="system.attributes.carisma" value="{{system.attributes.carisma}}"></div>
+        </div>
+        <div class="stat-bar-container">
+          <label>Compostura</label>
+          <div class="flexrow align-center">
+            <div class="resource-bar compostura-bg">x / {{system.derived.compostura.max}}</div>
+            <div class="bono-box"><label>Bono</label><input type="number" name="system.bonos.compostura" value="{{system.bonos.compostura}}"></div>
+          </div>
+        </div>
+
+        <hr>
+
+        <!-- Grupo 3 -->
+        <div class="stat-pair flexrow">
+          <div class="stat-box"><label><a class="rollable-stat" data-stat="afinidad">Afinidad</a></label><input type="number" name="system.attributes.afinidad" value="{{system.attributes.afinidad}}"></div>
+          <div class="stat-box"><label><a class="rollable-stat" data-stat="voluntad">Voluntad</a></label><input type="number" name="system.attributes.voluntad" value="{{system.attributes.voluntad}}"></div>
+        </div>
+        <div class="stat-bar-container">
+          <label>Poder</label>
+          <div class="flexrow align-center">
+            <div class="resource-bar poder-bg">x / {{system.derived.poder.max}}</div>
+            <div class="bono-box"><label>Bono</label><input type="number" name="system.bonos.poder" value="{{system.bonos.poder}}"></div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- SKILLS -->
+      <section class="skills-section">
+        
+        <!-- Grupo 1 -->
+        <div class="skills-grid">
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="pelea"></a> <label>Pelea</label> <input type="number" name="system.skills.pelea" value="{{system.skills.pelea}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="atletismo"></a> <label>Atletismo</label> <input type="number" name="system.skills.atletismo" value="{{system.skills.atletismo}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="sigilo"></a> <label>Sigilo</label> <input type="number" name="system.skills.sigilo" value="{{system.skills.sigilo}}"></div>
+          
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="disparo"></a> <label>Disparo</label> <input type="number" name="system.skills.disparo" value="{{system.skills.disparo}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="acrobacia"></a> <label>Acrobacia</label> <input type="number" name="system.skills.acrobacia" value="{{system.skills.acrobacia}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="latrocinio"></a> <label>Latrocinio</label> <input type="number" name="system.skills.latrocinio" value="{{system.skills.latrocinio}}"></div>
+          
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="resistencia"></a> <label>Resistencia</label> <input type="number" name="system.skills.resistencia" value="{{system.skills.resistencia}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="proeza"></a> <label>Proeza</label> <input type="number" name="system.skills.proeza" value="{{system.skills.proeza}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="conducir"></a> <label>Conducción</label> <input type="number" name="system.skills.conducir" value="{{system.skills.conducir}}"></div>
+        </div>
+
+        <hr class="skill-divider">
+
+        <!-- Grupo 2 -->
+        <div class="skills-grid">
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="percepcion"></a> <label>Percepción</label> <input type="number" name="system.skills.percepcion" value="{{system.skills.percepcion}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="influencia"></a> <label>Persuasión</label> <input type="number" name="system.skills.influencia" value="{{system.skills.influencia}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="cultura"></a> <label>Cultura</label> <input type="number" name="system.skills.cultura" value="{{system.skills.cultura}}"></div>
+          
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="investigacion"></a> <label>Investigación</label> <input type="number" name="system.skills.investigacion" value="{{system.skills.investigacion}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="subterfugio"></a> <label>Subterfugio</label> <input type="number" name="system.skills.subterfugio" value="{{system.skills.subterfugio}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="ciencia"></a> <label>Ciencia</label> <input type="number" name="system.skills.ciencia" value="{{system.skills.ciencia}}"></div>
+          
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="resilencia"></a> <label>Resilencia</label> <input type="number" name="system.skills.resilencia" value="{{system.skills.resilencia}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="elaborar"></a> <label>Elaborar</label> <input type="number" name="system.skills.elaborar" value="{{system.skills.elaborar}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="medicina"></a> <label>Medicina</label> <input type="number" name="system.skills.medicina" value="{{system.skills.medicina}}"></div>
+        </div>
+
+        <hr class="skill-divider">
+
+        <!-- Grupo 3 -->
+        <div class="skills-grid">
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="ocultismo"></a> <label>Ocultismo</label> <input type="number" name="system.skills.ocultismo" value="{{system.skills.ocultismo}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="canalizar"></a> <label>Canalización</label> <input type="number" name="system.skills.canalizar" value="{{system.skills.canalizar}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="presencia"></a> <label>Presencia</label> <input type="number" name="system.skills.presencia" value="{{system.skills.presencia}}"></div>
+          
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="espiritualidad"></a> <label>Espiritualidad</label> <input type="number" name="system.skills.espiritualidad" value="{{system.skills.espiritualidad}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="naturaleza"></a> <label>Naturaleza</label> <input type="number" name="system.skills.naturaleza" value="{{system.skills.naturaleza}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="arte"></a> <label>Arte</label> <input type="number" name="system.skills.arte" value="{{system.skills.arte}}"></div>
+          
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="ataraxia"></a> <label>Ataraxia</label> <input type="number" name="system.skills.ataraxia" value="{{system.skills.ataraxia}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="instinto"></a> <label>Instinto</label> <input type="number" name="system.skills.instinto" value="{{system.skills.instinto}}"></div>
+          <div class="skill-item"><a class="rollable-skill roll-btn" data-skill="actuacion"></a> <label>Actuación</label> <input type="number" name="system.skills.actuacion" value="{{system.skills.actuacion}}"></div>
+        </div>
+
+      </section>
     </div>
 
-    <h3>Habilidades de Mente</h3>
-    <div class="grid grid-3col">
-      <label><a class="rollable-skill" data-skill="percepcion"><i class="fas fa-dice"></i> Percepcion</a> <input type="number" name="system.skills.percepcion" value="{{system.skills.percepcion}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="influencia"><i class="fas fa-dice"></i> Influencia</a> <input type="number" name="system.skills.influencia" value="{{system.skills.influencia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="resilencia"><i class="fas fa-dice"></i> Resilencia</a> <input type="number" name="system.skills.resilencia" value="{{system.skills.resilencia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="subterfugio"><i class="fas fa-dice"></i> Subterfugio</a> <input type="number" name="system.skills.subterfugio" value="{{system.skills.subterfugio}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="elaborar"><i class="fas fa-dice"></i> Elaborar</a> <input type="number" name="system.skills.elaborar" value="{{system.skills.elaborar}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="investigacion"><i class="fas fa-dice"></i> Investigacion</a> <input type="number" name="system.skills.investigacion" value="{{system.skills.investigacion}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="ciencia"><i class="fas fa-dice"></i> Ciencia</a> <input type="number" name="system.skills.ciencia" value="{{system.skills.ciencia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="medicina"><i class="fas fa-dice"></i> Medicina</a> <input type="number" name="system.skills.medicina" value="{{system.skills.medicina}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="cultura"><i class="fas fa-dice"></i> Cultura</a> <input type="number" name="system.skills.cultura" value="{{system.skills.cultura}}" min="-5" max="30"/></label>
-    </div>
-
-    <h3>Habilidades de Alma</h3>
-    <div class="grid grid-3col">
-      <label><a class="rollable-skill" data-skill="ocultismo"><i class="fas fa-dice"></i> Ocultismo</a> <input type="number" name="system.skills.ocultismo" value="{{system.skills.ocultismo}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="espiritualidad"><i class="fas fa-dice"></i> Espiritualidad</a> <input type="number" name="system.skills.espiritualidad" value="{{system.skills.espiritualidad}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="canalizar"><i class="fas fa-dice"></i> Canalizar</a> <input type="number" name="system.skills.canalizar" value="{{system.skills.canalizar}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="naturaleza"><i class="fas fa-dice"></i> Naturaleza</a> <input type="number" name="system.skills.naturaleza" value="{{system.skills.naturaleza}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="presencia"><i class="fas fa-dice"></i> Presencia</a> <input type="number" name="system.skills.presencia" value="{{system.skills.presencia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="arte"><i class="fas fa-dice"></i> Arte</a> <input type="number" name="system.skills.arte" value="{{system.skills.arte}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="actuacion"><i class="fas fa-dice"></i> Actuacion</a> <input type="number" name="system.skills.actuacion" value="{{system.skills.actuacion}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="ataraxia"><i class="fas fa-dice"></i> Ataraxia</a> <input type="number" name="system.skills.ataraxia" value="{{system.skills.ataraxia}}" min="-5" max="30"/></label>
-      <label><a class="rollable-skill" data-skill="instinto"><i class="fas fa-dice"></i> Instinto</a> <input type="number" name="system.skills.instinto" value="{{system.skills.instinto}}" min="-5" max="30"/></label>
-    </div>
+    <!-- NAVEGACION: las demas pero vacias -->
+    <div class="tab" data-group="primary" data-tab="biografia"><p>Biografía lore ipsum...</p></div>
+    <div class="tab" data-group="primary" data-tab="inventario"><p>Inventario lore ipsum...</p></div>
+    <div class="tab" data-group="primary" data-tab="experiencia"><p>Experiencia lore ipsum...</p></div>
+    <div class="tab" data-group="primary" data-tab="dotes"><p>Dotes lore ipsum...</p></div>
+    <div class="tab" data-group="primary" data-tab="opciones"><p>Configuración del sistema lore ipsum...</p></div>
   </section>
 </form>
